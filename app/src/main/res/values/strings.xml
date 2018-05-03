@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">DemoMap</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="maps_key">AIzaSyCa9kyCUjoT_1X9hUnBtRmfOxAn28TAFrU</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
