@@ -94,14 +94,13 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
         init();
 
-        PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment)
+        final PlaceAutocompleteFragment placeAutocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         placeAutocompleteFragment.setHint("Nhâp tên con đường");
 
@@ -200,6 +199,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 }else {
                     Toast.makeText(getApplicationContext(), "Hãy nhập vào một đường hoặc một quận", Toast.LENGTH_SHORT).show();
                 }
+                cV.setVisibility(View.INVISIBLE);
             }
 
             @Override
@@ -349,7 +349,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         return data;
     }
 
-    private String getDirectionsUrl(LatLng origin,LatLng dest){
+    private static String getDirectionsUrl(LatLng origin,LatLng dest){
 
         // Origin of route
         String str_origin = "origin="+origin.latitude+","+origin.longitude;
@@ -365,7 +365,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         // Building the url to the web service
         String url = "https://maps.googleapis.com/maps/api/directions/"+output+"?"+parameters + "&key="
-                + getString(R.string.maps_key);
+                + "AIzaSyCa9kyCUjoT_1X9hUnBtRmfOxAn28TAFrU";
 
         return url;
     }

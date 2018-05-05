@@ -23,6 +23,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class RoadJSONParser {
+   // public static double distance = 0;
+
     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS).retryOnConnectionFailure(true).build();
 
@@ -78,11 +80,9 @@ public class RoadJSONParser {
                         e.printStackTrace();
                     }
 
-                    Road road1 = new Road(id, nodes, coordinate, null, null, road,suburb, city, country);
+                    Road road1 = new Road(id, nodes, coordinate, nodes.get(0).getCoordinate(), nodes.get(nodes.size() - 1).getCoordinate(), road,suburb, city, country);
 
-                   // new FetchNodesOfWay().execute(MapsActivity.getARoadURL(id));
                     roads.add(road1);
-                // }
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -90,6 +90,11 @@ public class RoadJSONParser {
 
        // Log.e("ssss", roads.get(0).toString());
         return  roads;
+    }
+
+    public double getDistance(){
+
+        return 0;
     }
 
     public synchronized List<node> parseNode(JSONObject jsonObject){
