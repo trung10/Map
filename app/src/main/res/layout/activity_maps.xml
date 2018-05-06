@@ -30,6 +30,14 @@
         android:name="com.google.android.gms.maps.MapFragment"
         android:id="@+id/map" />
 
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        map:layout_anchor="@+id/bottom_sheet"
+        map:layout_anchorGravity="top|center"
+        style="?android:attr/progressBarStyleHorizontal"/>
     <android.support.v4.widget.NestedScrollView
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"

@@ -4,17 +4,17 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.List;
 
-public class Road {
+public class Road {//class con đường
     private String id;
     //private String address;
-    private List<node> listNodes;
-    private LatLng coordinate;
-    private LatLng coordinateStart;
-    private LatLng coordinateEnd;
-    private String road;
-    private String suburb;
-    private String city;
-    private String country;
+    private List<node> listNodes;//List các điểm trên con đường
+    private LatLng coordinate;//tọa độ một điểm bất kỳ trên con đường
+    private LatLng coordinateStart;//tọa dộ bắt đầu của con đường
+    private LatLng coordinateEnd;//tọa độ kết thúc của con đường
+    private String road;//tên con đường
+    private String suburb;//tên quận chứa con đường đó
+    private String city;//thành phố của con đường đó
+    private String country;//nc
 
     public Road(String id, List<node> listNodes, LatLng coordinate, LatLng coordinateStart, LatLng coordinateEnd, String road, String suburb, String city, String country) {
         this.id = id;

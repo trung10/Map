@@ -6,10 +6,10 @@ import java.util.List;
 
 import module.Road;
 
-public class node {
-    private String id;
-    private LatLng coordinate;
-    private List<Road> waysFornode;
+public class node {//class các điểm trên một con đường
+    private String id;//id
+    private LatLng coordinate;//tọa đồ của điểm đó
+    private List<Road> waysFornode;//List các con đường trên điểm đó
 
 
     public node(String id, LatLng coordinate, List<Road> waysFornode) {

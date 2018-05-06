@@ -24,11 +24,10 @@ import okhttp3.Response;
 
 public class RoadJSONParser {
    // public static double distance = 0;
-
     OkHttpClient client = new OkHttpClient.Builder().connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(10, TimeUnit.SECONDS).retryOnConnectionFailure(true).build();
 
-    public List<Road> parseRoad(JSONArray jsonObject){
+    public List<Road> parseRoad(JSONArray jsonObject){//mấy hàm này để phân tích dữ liêu nhận được ra dữ liệu kết quả
         List<Road> roads= new ArrayList<>();
 
         try {
@@ -92,12 +91,33 @@ public class RoadJSONParser {
         return  roads;
     }
 
-    public double getDistance(){
+    public Double distanceParser(LatLng start, LatLng end){//lấy ra khoảng cánh giữa 2 điểm
+        Request.Builder  builder = new Request.Builder();
+        String URL = MapsActivity.getDirectionsUrl(start, end);
+        builder.url(URL);
+        Double d = 0.0;
+        Request request = builder.build();
+        try {
+            Response response = client.newCall(request).execute();
+            String data = response.body().string();
+            JSONObject jsonObject = new JSONObject(data);
+            JSONArray routesArray = jsonObject.getJSONArray("routes");
+            JSONObject routerObject_0 = (JSONObject) routesArray.get(0);
+            JSONArray legsArray = routerObject_0.getJSONArray("legs");
+            JSONObject legOject = (JSONObject) legsArray.get(0);
+            JSONObject distance = legOject.getJSONObject("distance");
+            d = distance.getDouble("value");
 
-        return 0;
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return d;
     }
 
-    public synchronized List<node> parseNode(JSONObject jsonObject){
+    public synchronized List<node> parseNode(JSONObject jsonObject){//hàm đông bộ và  lấy các diểm trên trên con đường
         List<node> nodes = new ArrayList<>();
         nodes.clear();
 
@@ -148,7 +168,7 @@ public class RoadJSONParser {
         return  nodes;
     }
 
-    public List<Road> waysForNode(List<Road> roads){
+    public List<Road> waysForNode(List<Road> roads){//lấy các đường trên con dường đó
 
         List<String> ids = new ArrayList<>();
         for (int i = 0; i < roads.size(); i++) {
@@ -208,7 +228,7 @@ public class RoadJSONParser {
 
         return roads;
     }
-    private String wayOfNodeURL(String nodeID){
+    private String wayOfNodeURL(String nodeID){//API trả về các con đường trên điểm đó
         return "http://overpass-api.de/api/interpreter?data=[out:json][timeout:25];(node(" +
                 nodeID +
                 "); way(bn);); out body;";
